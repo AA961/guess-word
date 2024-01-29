@@ -28,15 +28,24 @@ def initialize_game():
         "How many letters Word you wanna Guess?: ")
 
     correct_ans = get_random_word(digit)
+
     if not correct_ans:
         print("Failed to fetch a word. Exiting.")
         exit()
-
-    hint = random.randint(0, len(correct_ans)-1)
+    num_of_hint = 1
+    num_of_hint = len(correct_ans) // 2 if len(correct_ans) >= 2 else 0
     progress = ["_"] * len(correct_ans)
-    progress[hint] = correct_ans[hint]
+
+    while True:
+        if num_of_hint != 0:
+            hint = random.randint(0, len(correct_ans)-1)
+            num_of_hint -= 1
+            progress[hint] = correct_ans[hint]
+            continue
+        else:
+            break
     print(progress)
-    #print(correct_ans)
+    # print(correct_ans)
     return correct_ans, progress
 
 
@@ -45,15 +54,18 @@ def play_game():
     correct_ans, progress = initialize_game()
 
     while "_" in progress and Tries > 0:
+
         ans = input("Enter The Word: ").lower()
+
         if ans in correct_ans:
+
             for i in range(len(correct_ans)):
                 if ans == correct_ans[i]:
                     progress[i] = ans
             print(progress)
 
             if correct_ans.count(ans) > 1:
-                        continue
+                continue
         else:
             print("Incorrect Guess: Try Again,", progress)
             Tries -= 1
@@ -65,4 +77,6 @@ def play_game():
     else:
         print("You Used all of your tries & you lost. Correct ans was:", correct_ans)
         reset_game()
+
+
 play_game()

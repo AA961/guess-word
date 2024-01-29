@@ -32,11 +32,11 @@ def initialize_game():
         print("Failed to fetch a word. Exiting.")
         exit()
 
-    hint = random.randint(0,len(correct_ans))
+    hint = random.randint(0, len(correct_ans)-1)
     progress = ["_"] * len(correct_ans)
     progress[hint] = correct_ans[hint]
     print(progress)
-    print(correct_ans)
+    #print(correct_ans)
     return correct_ans, progress
 
 
@@ -50,7 +50,10 @@ def play_game():
             for i in range(len(correct_ans)):
                 if ans == correct_ans[i]:
                     progress[i] = ans
-                    print(progress)
+            print(progress)
+
+            if correct_ans.count(ans) > 1:
+                        continue
         else:
             print("Incorrect Guess: Try Again,", progress)
             Tries -= 1
@@ -62,6 +65,4 @@ def play_game():
     else:
         print("You Used all of your tries & you lost. Correct ans was:", correct_ans)
         reset_game()
-
-
 play_game()

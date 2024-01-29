@@ -24,4 +24,4 @@ This is a simple word guessing game implemented in Python. The game randomly sel
 ## Usage
 
 ```bash
-python word_guessing_game.py
+python main.py
